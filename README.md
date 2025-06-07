@@ -158,7 +158,7 @@ even better.
 ## Author 👤
 
 Created by **Bohdan Kulinchenko**\
-Founder @ [itboom.dev](https://itboom.dev)\
+Founder [itboom.dev](https://itboom.dev)\
 GitHub: [@ITBoomDev](https://github.com/ITBoomDev)
 
 ---
