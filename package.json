@@ -7,39 +7,52 @@
         "type": "git",
         "url": "https://github.com/ITBoomDev/next-types.git"
     },
-    "main": "./dist/index.cjs",
-    "module": "./dist/index.js",
     "types": "./dist/global.d.ts",
     "files": [
         "dist"
     ],
     "devDependencies": {
         "@types/node": "^20.5.7",
-        "typescript": "^5.1.6",
-        "bun-plugin-dts": "^0.3.0"
+        "typescript": "^5.1.6"
     },
     "exports": {
-        "import": "./dist/index.js",
-        "require": "./dist/index.cjs",
         "types": "./dist/global.d.ts"
     },
-    "description": "Global layout/page prop types for Next.js projects — no imports needed.",
+    "description": "Global, collision-safe props types for Next.js App Router — zero-import, fully typed params and searchParams.",
     "keywords": [
         "nextjs",
+        "next.js",
+        "next js",
+        "next app router",
+        "app directory",
+        "app dir",
         "typescript",
-        "layout",
-        "params",
-        "app-router",
-        "global-types",
-        "page-props",
+        "global types",
+        "page props",
+        "layout props",
+        "route handler props",
+        "typed params",
+        "typed searchParams",
+        "search params",
+        "async params",
+        "params typing",
+        "nextjs props types",
+        "nextjs page typing",
+        "typescript utils",
+        "zero import types",
+        "typed nextjs layouts",
+        "typed nextjs routes",
+        "typed nextjs pages",
+        "nextjs type helper",
+        "nextjs developer tools",
         "itboom"
     ],
     "license": "MIT",
     "scripts": {
         "prepare": "mkdir -p dist && cp src/*.d.ts dist",
         "prepublishOnly": "bun run prepare",
-        "pub:patch": "npm version patch && bun publish",
-        "pub:minor": "npm version minor && bun publish",
-        "pub:major": "npm version major && bun publish"
+        "pub:patch": "npm version patch && bun publish --access public",
+        "pub:minor": "npm version minor && bun publish --access public",
+        "pub:major": "npm version major && bun publish --access public"
     }
 }
