@@ -1,13 +1,13 @@
 import type {
-    PageProps as _PageProps,
-    LayoutProps as _LayoutProps,
-    RouteProps as _RouteProps
+    NextPageProps as _NextPageProps,
+    NextLayoutProps as _NextLayoutProps,
+    NextRouteProps as _NextRouteProps
 } from './index';
 
 declare global {
-    type PageProps<Params = {}, SearchParams = {}> = _PageProps<Params, SearchParams>;
-    type LayoutProps<Params = {}> = _LayoutProps<Params>;
-    type RouteProps<Params = {}> = _RouteProps<Params>;
+    type NextPageProps<Params = {}, SearchParams = {}> = _NextPageProps<Params, SearchParams>;
+    type NextLayoutProps<Params = {}> = _NextLayoutProps<Params>;
+    type NextRouteProps<Params = {}> = _NextRouteProps<Params>;
 }
 
 export { };

@@ -1,4 +1,4 @@
-export type PageProps<
+export type NextPageProps<
     Params extends Record<string, any> = {},
     SearchParams extends Record<string, any> = {}
 > = Readonly<{
@@ -6,14 +6,14 @@ export type PageProps<
     searchParams: Promise<SearchParams>;
 }>;
 
-export type LayoutProps<
+export type NextLayoutProps<
     Params extends Record<string, any> = {}
 > = Readonly<{
     children: React.ReactNode;
     params: Promise<Params>;
 }>;
 
-export type RouteProps<
+export type NextRouteProps<
     Params extends Record<string, any> = {}
 > = Readonly<{
     params: Promise<Params>;

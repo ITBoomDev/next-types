@@ -1,10 +1,10 @@
 # @itboom/next-types 🚀
 
 **@itboom/next-types** is a global TypeScript utility that provides
-strongly-typed, zero-import **props types** for Next.js App Router components.
+strongly-typed, **collision-safe** prop types for Next.js App Router components.
 
-It includes three globally available types — `PageProps`, `LayoutProps`, and
-`RouteProps` — optimized for use in asynchronous environments where `params` and
+It includes three globally available types — `NextPageProps`, `NextLayoutProps`, and
+`NextRouteProps` — optimized for use in asynchronous environments where `params` and
 `searchParams` are promises.
 
 ---
@@ -14,24 +14,26 @@ It includes three globally available types — `PageProps`, `LayoutProps`, and
 1. [Features ✨](#features)
 2. [Installation 📦](#installation)
 3. [Usage 🔧](#usage)
+   - [Option 1: Import types](#option-1-import-types)
+   - [Option 2: Enable global types](#option-2-enable-global-types)
+4. [Examples](#examples)
    - [Page Props](#page-props)
    - [Layout Props](#layout-props)
    - [Route Props](#route-props)
-4. [API Reference 📚](#api-reference)
-5. [License 📄](#license)
-6. [Contributing 🤝](#contributing)
-7. [Author 👤](#author)
+5. [API Reference 📚](#api-reference)
+6. [License 📄](#license)
+7. [Contributing 🤝](#contributing)
+8. [Author 👤](#author)
 
 ---
 
 ## Features ✨
 
-- ✅ **Zero imports:** All types are globally available — no need to import
-- 💡 **Precise typings for props:** Generic support for route `params`,
-  `searchParams`, and layout `children`
-- 🧠 **Optimized for App Router async context:** All props are `Promise`-wrapped
-  for native `await` usage
-- ⚡ **Small and focused:** No code — types only
+- ✅ **Two usage modes:** Import types or enable them globally via `tsconfig.json`
+- 🧠 **Async-first design:** All props are promise-wrapped for `await` support
+- 🧩 **Collision-safe names:** No clashes with `LayoutProps` from other libraries
+- 🔍 **Clear intent:** Names follow `NextPageProps`, `NextLayoutProps`, `NextRouteProps`
+- ⚡ **Lightweight:** Types only, zero runtime code
 
 ---
 
@@ -49,19 +51,37 @@ bun add @itboom/next-types
 npm install @itboom/next-types
 ```
 
-Then register it in your `tsconfig.json`:
-
-```json
-{
-    "compilerOptions": {
-        "types": ["@itboom/next-types"]
-    }
-}
-```
-
 ---
 
 ## Usage 🔧
+
+### Option 1: Import types
+
+```ts
+import type {
+  NextPageProps,
+  NextLayoutProps,
+  NextRouteProps
+} from '@itboom/next-types';
+```
+
+### Option 2: Enable global types
+
+In your `tsconfig.json`:
+
+```json
+{
+  "compilerOptions": {
+    "types": ["@itboom/next-types"]
+  }
+}
+```
+
+> If IntelliSense doesn’t work immediately, reload VS Code or restart the TS server.
+
+---
+
+## Examples
 
 ### Page Props
 
@@ -69,12 +89,12 @@ Then register it in your `tsconfig.json`:
 // /app/product/[id]/page.tsx
 
 const Page = async (
-    { params, searchParams }: PageProps<{ id: string }, { lang: string }>,
+  { params, searchParams }: NextPageProps<{ id: string }, { lang: string }>
 ) => {
-    const { id } = await params;
-    const { lang } = await searchParams;
+  const { id } = await params;
+  const { lang } = await searchParams;
 
-    return <div>Product ID: {id} | Language: {lang}</div>;
+  return <div>Product ID: {id} | Language: {lang}</div>;
 };
 ```
 
@@ -86,15 +106,15 @@ const Page = async (
 // /app/[locale]/layout.tsx
 
 const Layout = async (
-    { children, params }: LayoutProps<{ locale: string }>,
+  { children, params }: NextLayoutProps<{ locale: string }>
 ) => {
-    const { locale } = await params;
+  const { locale } = await params;
 
-    return (
-        <html lang={locale}>
-            <body>{children}</body>
-        </html>
-    );
+  return (
+    <html lang={locale}>
+      <body>{children}</body>
+    </html>
+  );
 };
 ```
 
@@ -105,10 +125,10 @@ const Layout = async (
 ```ts
 // /app/api/user/[id]/route.ts
 
-const GET = async ({ params }: RouteProps<{ id: string }>) => {
-    const { id } = await params;
+const GET = async ({ params }: NextRouteProps<{ id: string }>) => {
+  const { id } = await params;
 
-    return new Response(`User ID: ${id}`);
+  return new Response(`User ID: ${id}`);
 };
 ```
 
@@ -116,29 +136,29 @@ const GET = async ({ params }: RouteProps<{ id: string }>) => {
 
 ## API Reference 📚
 
-### `PageProps<Params, SearchParams>`
+### `NextPageProps<Params, SearchParams>`
 
-Props type for `page.tsx` components.
+Props type for `page.tsx` components:
 
 - `params: Promise<Params>` – dynamic route segments
-- `searchParams: Promise<SearchParams>` – parsed URL query
+- `searchParams: Promise<SearchParams>` – parsed query string
 
 ---
 
-### `LayoutProps<Params>`
+### `NextLayoutProps<Params>`
 
-Props type for `layout.tsx` components.
+Props type for `layout.tsx` components:
 
-- `params: Promise<Params>` – dynamic route segments
-- `children: React.ReactNode` – nested content
+- `params: Promise<Params>`
+- `children: React.ReactNode`
 
 ---
 
-### `RouteProps<Params>`
+### `NextRouteProps<Params>`
 
-Props type for `route.ts` API handlers.
+Props type for `route.ts` handlers:
 
-- `params: Promise<Params>` – dynamic route segments
+- `params: Promise<Params>`
 
 ---
 
@@ -150,18 +170,16 @@ MIT License. See the [LICENSE](LICENSE) file for details.
 
 ## Contributing 🤝
 
-Issues, feedback, and pull requests are welcome! Help make this type utility
-even better.
+Issues, ideas, and PRs are welcome — help improve typing hygiene for the Next.js ecosystem!
 
 ---
 
 ## Author 👤
 
-Created by **Bohdan Kulinchenko**\
-Founder [itboom.dev](https://itboom.dev)\
+Created by **Bohdan Kulinchenko**  
+Founder of [itboom.dev](https://itboom.dev)  
 GitHub: [@ITBoomDev](https://github.com/ITBoomDev)
 
 ---
 
-Enjoy using **@itboom/next-types** — type your props the clean and correct way.
-🔥
+Enjoy using **@itboom/next-types** — and type your props the clean and correct way. 🔥
