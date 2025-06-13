@@ -1,5 +1,6 @@
 {
     "name": "@itboom/next-types",
+    "private": false,
     "version": "1.0.3",
     "author": "Bohdan Kulinchenko",
     "homepage": "https://github.com/ITBoomDev/next-types",
@@ -19,6 +20,18 @@
         "types": "./dist/global.d.ts"
     },
     "description": "Global, collision-safe props types for Next.js App Router — zero-import, fully typed params and searchParams.",
+    "license": "MIT",
+    "scripts": {
+        "prepare": "mkdir -p dist && cp src/*.d.ts dist",
+        "prepublishOnly": "bun run prepare",
+        "pub:first": "bun publish",
+        "pub:patch": "npm version patch && bun publish",
+        "pub:minor": "npm version minor && bun publish",
+        "pub:major": "npm version major && bun publish"
+    },
+    "publishConfig": {
+        "access": "public"
+    },
     "keywords": [
         "nextjs",
         "next.js",
@@ -46,14 +59,5 @@
         "nextjs type helper",
         "nextjs developer tools",
         "itboom"
-    ],
-    "license": "MIT",
-    "scripts": {
-        "prepare": "mkdir -p dist && cp src/*.d.ts dist",
-        "prepublishOnly": "bun run prepare",
-        "pub:first": "bun publish",
-        "pub:patch": "npm version patch && bun publish",
-        "pub:minor": "npm version minor && bun publish",
-        "pub:major": "npm version major && bun publish"
-    }
+    ]
 }
